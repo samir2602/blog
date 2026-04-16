@@ -11,4 +11,9 @@ class PageController extends Controller
         $user = "samir";
         return view('hello', ['user' => $user]);
     }
+
+    public function about()
+    {
+        return view('about');
+    }
 }
