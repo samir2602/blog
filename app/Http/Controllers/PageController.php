@@ -40,4 +40,27 @@ class PageController extends Controller
 
         return redirect('/posts');
     }
+
+    public function edit(Post $post){
+        return view('edit', ['post' => $post]);
+    }
+
+    public function update(Request $request, Post $post){
+        $request->validate([
+            'title' => 'required|min:5',
+            'body' => 'required|min:10',
+        ]);
+
+        $post->update([
+            'title' => $request->title,
+            'body' => $request->body,
+        ]);
+
+        return redirect('/posts');
+    }
+
+    public function destory(Post $post){
+        $post->delete();
+        return redirect('/posts');
+    }
 }
