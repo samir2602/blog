@@ -16,3 +16,5 @@ Route::get('/', function () {
 Route::get('/hello', [PageController::class, 'hello']);
 Route::get('/about', [PageController::class, 'about']);
 Route::get('/posts', [PageController::Class, 'post']);
+Route::get('/posts/create', [PageController::class, 'create']);
+Route::post('/posts', [PageController::class, 'store']);
