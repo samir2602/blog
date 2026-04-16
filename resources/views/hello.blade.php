@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hello Page</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
     <h1>Hello, {{ $user }}! 👋</h1>
     <p>I am building my first Laravel app!</p>
-</body>
-</html>
+@endsection
