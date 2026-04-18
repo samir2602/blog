@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -24,7 +25,8 @@ class PageController extends Controller
 
     public function create()
     {
-        return view('create');
+        $categories = Category::all();
+        return view('create', ['categories' => $categories]);
     }
 
     public function store(Request $request){
@@ -33,11 +35,15 @@ class PageController extends Controller
             'body' => 'required|min:10',
         ]);
 
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'body' => $request->body,
             'user_id' => auth()->id(),
         ]);
+
+        if($request->categories){
+            $post->categories()->attach($request->categories);
+        }
 
         return redirect('/posts');
     }

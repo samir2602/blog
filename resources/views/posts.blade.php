@@ -7,6 +7,12 @@
         <h1>{{ $post->title }}</h1>
         <h5>{{ $post->body }}</h5>
         <small>Written by: {{ $post->user->name }}</small>
+        <br>
+        <small>Categories:
+            @foreach($post->categories as $category)
+                {{ $category->name }}
+            @endforeach
+        </small>
         @auth
         @if(auth()->id() === $post->user->id)
         <br><br>
