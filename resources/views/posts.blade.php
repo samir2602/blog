@@ -2,6 +2,10 @@
 
 @section('content')
     <h1>Blog Post</h1>
+    <form method="GET" action="/posts">
+        <input type="text" name="search" value="{{ $search }}" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
     @foreach($posts as $post)
     <div>
         <h1>{{ $post->title }}</h1>
@@ -26,4 +30,8 @@
         @endauth
     </div>
     @endforeach
+
+    <div>
+        {{ $posts->links() }}
+    </div>
 @endsection

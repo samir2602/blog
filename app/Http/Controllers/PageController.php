@@ -18,9 +18,12 @@ class PageController extends Controller
         return view('about');
     }
 
-    public function post(){
-        $posts = Post::all();
-        return view('posts', ['posts' => $posts]);
+    public function post(Request $request){
+        $search = $request->search;        
+        $posts = Post::with('user', 'categories')->when($search, function ($query) use ($search){
+            $query->where('title', 'like', '%'.$search.'%');
+        })->paginate(5);        
+        return view('posts', ['posts' => $posts, 'search' => $search]);
     }
 
     public function create()
