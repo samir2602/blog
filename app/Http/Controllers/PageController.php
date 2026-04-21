@@ -23,7 +23,7 @@ class PageController extends Controller
         $search = $request->search;        
         $posts = Post::with('user', 'categories')->when($search, function ($query) use ($search){
             $query->where('title', 'like', '%'.$search.'%');
-        })->paginate(5);        
+        })->simplePaginate(5);        
         return view('posts', ['posts' => $posts, 'search' => $search]);
     }
 
