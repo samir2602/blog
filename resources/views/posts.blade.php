@@ -8,7 +8,9 @@
     </form>
     @foreach($posts as $post)
     <div>
-        <h1>{{ $post->title }}</h1>
+        <h1>
+            <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
+        </h1>
         <h5>{{ $post->body }}</h5>
         <small>Written by: {{ $post->user->name }}</small>
         <br>

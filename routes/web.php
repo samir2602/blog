@@ -16,6 +16,8 @@ Route::get('/', function () {
 Route::get('/hello', [PageController::class, 'hello']);
 Route::get('/about', [PageController::class, 'about']);
 Route::get('/posts', [PageController::Class, 'post']);
+Route::get('/posts/{post}', [PageController::class, 'show']);
+Route::post('/posts/{post}/comments', [PageController::class, 'comment']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

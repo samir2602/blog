@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -73,4 +74,23 @@ class PageController extends Controller
         $post->delete();
         return redirect('/posts');
     }
+
+    public function show(Post $post){
+        return view('show', ['post' => $post]);
+    }
+
+    public function comment(Request $request, Post $post){
+        $request->validate([
+            'body' => 'required|min:5',
+        ]);
+
+        Comment::create([
+            'body' => $request->body,
+            'post_id' => $post->id,
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect('/posts/'.$post->id);
+    }
+
 }
