@@ -45,7 +45,7 @@ class PostController extends Controller
             'body' => $request->body,
         ]);
 
-        return reponse()->json($post);
+        return response()->json($post);
     }
 
     public function destory(Post $post){
