@@ -5,17 +5,18 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Http\Resources\PostResource;
 
 class PostController extends Controller
 {
     public function index(){
         $posts = Post::with('user', 'categories')->paginate(5);
-        return response()->json($posts);
+        return PostResource::collection($posts);
     }
 
     public function show(Post $post){
         $post->load('user', 'categories', 'comments');
-        return response()->json($post);
+        return PostResource($post);
     }
 
     public function store(Request $request){
