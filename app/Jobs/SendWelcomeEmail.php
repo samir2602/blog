@@ -12,6 +12,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 
 class SendWelcomeEmail implements ShouldQueue
 {
@@ -30,6 +32,7 @@ class SendWelcomeEmail implements ShouldQueue
      */
     public function handle(): void
     {
-        Log::info('Welcome email sent to: '. $this->user->email);
+        Mail::to($this->user->email)->send(new WelcomeMail($this->user));
+        // Log::info('Welcome email sent to: '. $this->user->email);
     }
 }

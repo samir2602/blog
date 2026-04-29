@@ -22,6 +22,20 @@
         <textarea name="body" rows="5">{{ $post->body }}</textarea>
     </div>
     <br>
+    <div>
+    <label>Categories</label><br>
+        @foreach($categories as $category)
+            <input 
+                type="checkbox" 
+                name="categories[]" 
+                value="{{ $category->id }}"
+                {{ $post->categories->contains($category->id) ? 'checked' : '' }}
+            >
+            {{ $category->name }}<br>
+        @endforeach
+    </div>
+
+    <br>
     <button type="submit">Update Post</button>
 </form>
 @endsection

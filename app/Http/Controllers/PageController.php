@@ -53,7 +53,8 @@ class PageController extends Controller
     }
 
     public function edit(Post $post){
-        return view('edit', ['post' => $post]);
+        $categories = Category::all();
+        return view('edit', ['post' => $post, 'categories' => $categories]);
     }
 
     public function update(Request $request, Post $post){
@@ -66,6 +67,12 @@ class PageController extends Controller
             'title' => $request->title,
             'body' => $request->body,
         ]);
+
+        if($request->categories){
+            $post->categories()->sync($request->categories);
+        }else{
+            $post->categories()->detach();
+        }
 
         return redirect('/posts');
     }

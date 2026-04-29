@@ -13,12 +13,6 @@ Route::get('/', function () {
 //     return view('hello', ['user' => $user]);
 // });
 
-Route::get('/hello', [PageController::class, 'hello']);
-Route::get('/about', [PageController::class, 'about']);
-Route::get('/posts', [PageController::Class, 'post']);
-Route::get('/posts/{post}', [PageController::class, 'show']);
-Route::post('/posts/{post}/comments', [PageController::class, 'comment']);
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -33,5 +27,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{post}', [PageController::class, 'destory']);
     Route::post('/posts', [PageController::class, 'store']);
 });
+
+Route::get('/hello', [PageController::class, 'hello']);
+Route::get('/about', [PageController::class, 'about']);
+Route::get('/posts', [PageController::Class, 'post']);
+Route::get('/posts/{post}', [PageController::class, 'show']);
+Route::post('/posts/{post}/comments', [PageController::class, 'comment']);
 
 require __DIR__.'/auth.php';
