@@ -17,6 +17,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/hello', [PageController::class, 'hello']);
+Route::get('/about', [PageController::class, 'about']);
+Route::get('/posts', [PageController::Class, 'post']);
+Route::get('/posts/{post}', [PageController::class, 'show']);
+Route::post('/posts/{post}/comments', [PageController::class, 'comment']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -27,11 +33,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{post}', [PageController::class, 'destory']);
     Route::post('/posts', [PageController::class, 'store']);
 });
-
-Route::get('/hello', [PageController::class, 'hello']);
-Route::get('/about', [PageController::class, 'about']);
-Route::get('/posts', [PageController::Class, 'post']);
-Route::get('/posts/{post}', [PageController::class, 'show']);
-Route::post('/posts/{post}/comments', [PageController::class, 'comment']);
 
 require __DIR__.'/auth.php';

@@ -5,6 +5,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class PageController extends Controller
 {
@@ -20,10 +21,17 @@ class PageController extends Controller
     }
 
     public function post(Request $request){
-        $search = $request->search;        
-        $posts = Post::with('user', 'categories')->when($search, function ($query) use ($search){
-            $query->where('title', 'like', '%'.$search.'%');
-        })->simplePaginate(5);        
+        $search = $request->search;
+        $page = $request->page ?? 1;
+        $cacheKey = 'posts_page_'.$page;
+
+        $posts = Cache::remember($cacheKey, 60, function() use ($search, $cacheKey){
+            return Post::with('user', 'categories')
+            ->when($search, function ($query) use ($search){
+                $query->where('title', 'like', '%'.$search.'%');
+            })->simplePaginate(5);
+        });
+    
         return view('posts', ['posts' => $posts, 'search' => $search]);
     }
 
