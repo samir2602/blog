@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use App\Events\PostSaved;
 
 class PageController extends Controller
 {
@@ -29,7 +30,7 @@ class PageController extends Controller
             return Post::with('user', 'categories')
             ->when($search, function ($query) use ($search){
                 $query->where('title', 'like', '%'.$search.'%');
-            })->simplePaginate(5);
+            })->orderBy('id', 'desc')->simplePaginate(5);
         });
     
         return view('posts', ['posts' => $posts, 'search' => $search]);
@@ -57,6 +58,8 @@ class PageController extends Controller
             $post->categories()->attach($request->categories);
         }
 
+        PostSaved::dispatch($post);
+
         return redirect('/posts');
     }
 
@@ -81,6 +84,8 @@ class PageController extends Controller
         }else{
             $post->categories()->detach();
         }
+
+        PostSaved::dispatch($post);
 
         return redirect('/posts');
     }
