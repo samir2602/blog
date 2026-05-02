@@ -64,11 +64,15 @@ class PageController extends Controller
     }
 
     public function edit(Post $post){
+        $this->authorize('update', $post);
+
         $categories = Category::all();
         return view('edit', ['post' => $post, 'categories' => $categories]);
     }
 
     public function update(Request $request, Post $post){
+        $this->authorize('update', $post);
+
         $request->validate([
             'title' => 'required|min:5',
             'body' => 'required|min:10',
@@ -91,6 +95,7 @@ class PageController extends Controller
     }
 
     public function destory(Post $post){
+        $this->authorize('delete', $post);
         $post->delete();
         return redirect('/posts');
     }

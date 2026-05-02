@@ -20,7 +20,8 @@
             @endforeach
         </small>
         @auth
-        @if(auth()->id() === $post->user->id)
+        
+        @can('update', $post)
         <br><br>
         <a href="/posts/{{ $post->id }}/edit">Edit</a>
         <form method="post" action="/posts/{{ $post->id }}">
@@ -28,7 +29,8 @@
             @method('DELETE')
             <button type="submit">Delete</button>
         </form>
-        @endif
+        @endcan
+        
         @endauth
     </div>
     @endforeach

@@ -2,11 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Events\PostSaved;
 use App\Listeners\ClearPostsCache;
+use App\Models\Post;
+use App\Policies\PostPolicy;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\ServiceProvider;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -30,5 +33,7 @@ class AppServiceProvider extends ServiceProvider
             PostSaved::class,
             ClearPostsCache::class
         );
+
+        Gate::policy(Post::class, PostPolicy::class);
     }
 }
