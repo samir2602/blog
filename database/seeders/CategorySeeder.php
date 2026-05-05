@@ -13,8 +13,8 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        category::create(['name' => 'Laravel', 'slug' => 'laravel']);
-        category::create(['name' => 'PHP', 'slug' => 'php']);
-        category::create(['name' => 'Tutorial', 'slug' => 'tutorial']);
+        Category::create(['name' => 'Laravel', 'slug' => 'laravel']);
+        Category::create(['name' => 'PHP', 'slug' => 'php']);
+        Category::create(['name' => 'Tutorial', 'slug' => 'tutorial']);
     }
 }
