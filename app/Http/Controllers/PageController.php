@@ -60,7 +60,7 @@ class PageController extends Controller
 
         PostSaved::dispatch($post);
 
-        return redirect('/posts');
+        return redirect('/posts')->with('success', 'Post created successfully!');
     }
 
     public function edit(Post $post){
@@ -91,13 +91,13 @@ class PageController extends Controller
 
         PostSaved::dispatch($post);
 
-        return redirect('/posts');
+        return redirect('/posts')->with('success', 'Post updated successfully!');
     }
 
     public function destory(Post $post){
         $this->authorize('delete', $post);
         $post->delete();
-        return redirect('/posts');
+        return redirect('/posts')->with('success', 'Post deleted successfully!');
     }
 
     public function show(Post $post){
@@ -116,6 +116,11 @@ class PageController extends Controller
         ]);
 
         return redirect('/posts/'.$post->id);
+    }
+
+    public function home(){
+        $posts = Post::with('user', 'categories')->latest()->take(6)->get();
+        return view('home', ['posts' => $posts]);
     }
 
 }

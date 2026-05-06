@@ -4,14 +4,16 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::get('/hello', function () {
 //     $user = "Parth";
 //     return view('hello', ['user' => $user]);
 // });
+
+Route::get('/', [PageController::class, 'home']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
