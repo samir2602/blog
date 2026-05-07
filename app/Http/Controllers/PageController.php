@@ -24,7 +24,7 @@ class PageController extends Controller
     public function post(Request $request){
         $search = $request->search;
         $page = $request->page ?? 1;
-        $cacheKey = 'posts_page_'.$page;
+        $cacheKey = 'posts_' . ($search ?? 'all') . '_page_' . $page;
 
         $posts = Cache::remember($cacheKey, 60, function() use ($search, $cacheKey){
             return Post::with('user', 'categories')
