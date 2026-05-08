@@ -97,6 +97,7 @@ class PageController extends Controller
     public function destory(Post $post){
         $this->authorize('delete', $post);
         $post->delete();
+        Cache::flush();
         return redirect('/posts')->with('success', 'Post deleted successfully!');
     }
 

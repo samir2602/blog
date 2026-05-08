@@ -22,8 +22,6 @@ class ClearPostsCache
      */
     public function handle(PostSaved $event): void
     {
-        Cache::forget('posts_page_1');
-        Cache::forget('posts_page_2');
-        Cache::forget('posts_page_3');
+        Cache::flush();
     }
 }
