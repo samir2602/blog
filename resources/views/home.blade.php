@@ -5,6 +5,9 @@
     <div class="p-5 mb-4 bg-dark text-white rounded-3 text-center">
         <h1 class="fw-bold display-5">Welcome to MyBlog ✍️</h1>
         <p class="lead">Thoughts, tutorials and stories about Laravel & PHP</p>
+        <p class="mb-4">
+            <span class="badge bg-primary fs-6">{{ $posts->count() }} Latest Posts</span>
+        </p>
         @guest
             <a href="/register" class="btn btn-primary btn-lg me-2">Get Started</a>
             <a href="/posts" class="btn btn-outline-light btn-lg">Read Posts</a>

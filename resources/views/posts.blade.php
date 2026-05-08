@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'All Posts - MyBlog')
+
 @section('content')
     <div class="row mb-4">
         <div class="col-md-8">
