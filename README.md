@@ -2,9 +2,6 @@
 
 A full-featured blog application built with Laravel. Users can create, read, update and delete blog posts, leave comments, and filter posts by category.
 
-## 🌐 Live Demo
-[View Live](your-railway-url-here)
-
 ## ✨ Features
 
 - User authentication (register, login, logout)
